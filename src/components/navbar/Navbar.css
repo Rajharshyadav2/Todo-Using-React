@@ -1,0 +1,46 @@
+.nav-bar {
+  height: auto;
+  width: 85%;
+  border-top: 1px solid black;
+  box-shadow: 2px brown;
+  /* margin: -10px auto; */
+}
+
+.nav-bar-items {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.nav-btn {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+}
+.nav-btn-active {
+  color: orange;
+}
+
+.nav-btn:hover {
+  border: none;
+  cursor: pointer;
+}
+
+#add-btn {
+  background-color: rgb(148, 148, 233);
+  font-size: 1.4rem;
+  border-radius: 10px;
+  padding: 0 1.4em;
+  cursor: pointer;
+}
+
+#add-btn:hover {
+  border: 2px solid rgb(20, 124, 20);
+  box-shadow: 2px 5px 5px 2px gray;
+}
