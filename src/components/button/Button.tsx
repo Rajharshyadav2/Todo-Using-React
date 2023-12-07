@@ -2,20 +2,38 @@
  * Represents the properties of a button component in a React application.
  *
  * @interface ButtonProps
- *
- * @property {React.ReactNode} children - The content within the button.
- * @property {() => void} handleClick - A function to be called when the button is clicked.
- * @property {string} [className] - (Optional) The CSS class for styling the button.
  */
-interface ButtonType {
+
+interface ButtonProps {
+  /**
+   * The content of the button.
+   *
+   * @type {React.ReactNode}
+   */
   children: React.ReactNode;
+  /**
+   * The CSS class for styling the button.
+   *
+   * @type {string} - Classname
+   */
   className: string;
+  /**
+   * The type of the button. Defaults to 'submit'.
+   *
+   * @type {'submit'} [buttonType]
+   */
+  buttonType?: 'submit';
+  /**
+   * A function to handle the button click event.
+   *
+   * @returns {void}
+   */
   handleClick: () => void;
 }
 
-const Button = ({ children, className, handleClick }: ButtonType) => {
+const Button = ({ children, className, handleClick, buttonType }: ButtonProps) => {
   return (
-    <button className={className} onClick={handleClick}>
+    <button className={className} onClick={handleClick} type={buttonType}>
       {children}
     </button>
   );

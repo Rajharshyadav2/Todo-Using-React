@@ -1,0 +1,74 @@
+.todo-body {
+  height: fit-content;
+  width: 50%;
+  margin: 3rem auto;
+  padding: 0.5em 0.5em;
+  background-color: hsl(0, 0.2%, 97.05%);
+  border: 1px solid hsl(36, 53%, 73%);
+  border-radius: 1em;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: 0.6s;
+}
+
+.todo-header {
+  display: flex;
+  padding: 0.3em 0;
+  color: var(--todo-color);
+}
+
+.todo-header h3 {
+  width: 60%;
+  padding: 0 1.3em;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.todo-header h3:last-child {
+  text-align: right;
+  text-decoration: none;
+  font-family: serif monospace;
+}
+
+.todo-desc {
+  text-align: left;
+  padding: 0.2em 1.3em;
+  color: black;
+}
+
+.todo-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em 1.3em;
+}
+
+.todo-footer label {
+  width: 50%;
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.todo-btn {
+  width: auto;
+  height: auto;
+  padding: 0 0.8em;
+  margin-left: 1.5rem;
+  background-color: hsl(65, 43%, 85%);
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 0.6rem;
+  border: var(--main-border);
+  cursor: var(--main-cursor);
+}
+
+.todo-body:hover {
+  transform: scale(1.1, 1.1);
+}
+
+.todo-btn:hover {
+  border: 2px solid red;
+}
+
+.todo-btn:last-child:hover {
+  border: 2px solid var(--todo-color);
+}
