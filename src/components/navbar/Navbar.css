@@ -1,43 +1,32 @@
+:root {
+  --add-btn-bg-color: hsl(240, 50%, 73%);
+}
+
 .nav-bar {
   height: auto;
   width: 85%;
-  border-top: 1px solid black;
+  margin: 0 auto;
+  border-top: 1.5px solid black;
   box-shadow: 2px brown;
-  /* margin: -10px auto; */
 }
 
 .nav-bar-items {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 15px;
+  margin-top: 1rem;
 }
 
-.nav-btn {
-  width: auto;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.25rem;
-  font-weight: 700;
-  background-color: transparent;
-  border: none;
-}
-.nav-btn-active {
-  color: orange;
-}
-
-.nav-btn:hover {
-  border: none;
-  cursor: pointer;
+.nav-bar-items a {
+  text-decoration: none;
 }
 
 #add-btn {
-  background-color: rgb(148, 148, 233);
+  background-color: var(--add-btn-bg-color);
   font-size: 1.4rem;
   border-radius: 10px;
   padding: 0 1.4em;
-  cursor: pointer;
+  cursor: var(--main-cursor);
 }
 
 #add-btn:hover {

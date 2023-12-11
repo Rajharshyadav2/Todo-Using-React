@@ -1,3 +1,4 @@
+import './button.css';
 import classNames from 'classnames';
 import Button from './Button';
 import { CurrentNavItemType } from '../../types';
@@ -5,25 +6,35 @@ import { CurrentNavItemType } from '../../types';
 /**
  * Represents the properties of a navigation button in a Navbar component.
  *
- * @interface NavButtonType
- *
- * @property {CurrentNavItemType} value - The value of the navigation button, representing 'All', 'In Progress', 'Completed', or 'Add-Todo'.
- * @property {boolean} isActive - Indicates whether the navigation button is currently active.
- * @property {(value: CurrentNavItemType) => void} setCurrentNavItem - A function to update the header value in the parent component.
+ * @interface NavButtonProps
  */
-interface NavButtonType {
+interface NavButtonProps {
+  /**
+   *  The value of the navigation button, representing 'All', 'In Progress', 'Completed', or 'Add-Todo'.
+   *
+   * @type {CurrentNavItemType}
+   */
   value: CurrentNavItemType;
+
+  /**
+   * Indicates whether the navigation button is currently active.
+   *
+   * @type {boolean}
+   */
   isActive: boolean;
+  /**
+   * A function to update the header value in the parent component.
+   *
+   * @param {CurrentNavItemType}
+   * @returns {void}
+   */
   setCurrentNavItem: (value: CurrentNavItemType) => void;
 }
 
-const NavButton = ({ value, isActive, setCurrentNavItem }: NavButtonType) => {
+const NavButton = ({ value, isActive, setCurrentNavItem }: NavButtonProps) => {
   return (
     <li>
-      <Button
-        handleClick={() => setCurrentNavItem(value)}
-        className={classNames('nav-btn', { 'nav-btn-active': isActive })}
-      >
+      <Button handleClick={() => setCurrentNavItem(value)} className={classNames('btn', { 'btn-active': isActive })}>
         {value}
       </Button>
     </li>
