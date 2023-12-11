@@ -1,0 +1,8 @@
+.delete-body {
+  padding: 0 1rem;
+}
+.delete-body h4 {
+  font-weight: 700;
+  font-size: var(--todo-font-size);
+  margin: 0 auto 2em auto;
+}

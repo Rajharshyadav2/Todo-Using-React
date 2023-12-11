@@ -18,14 +18,24 @@ interface AddTodoProps {
    * @returns {void}
    */
   closeModal: () => void;
+  /**
+   * Indicates whether it is an update operation. Default is `false`.
+   *
+   * @type {boolean}
+   */
+  isUpdate?: boolean;
+  /**
+   * The todo object for update operation.
+   *
+   */
+  todo?: { title: string; description: string; dueDate: string; status: string };
 }
-export const AddTodo = ({ closeModal }: AddTodoProps) => {
-  const [todoTitle, setTodoTitle] = useState('');
-  const [todoDescritption, setTodoDescription] = useState('');
-  const [todoDueDate, setTodoDueDate] = useState('');
+export const AddTodo = ({ closeModal, isUpdate = false, todo }: AddTodoProps) => {
+  const [todoTitle, setTodoTitle] = useState(todo?.title || '');
+  const [todoDescritption, setTodoDescription] = useState(todo?.description || '');
+  const [todoDueDate, setTodoDueDate] = useState(todo?.dueDate || '');
+  const [isCompleted, setIsCompleted] = useState(todo?.status === 'Pending' ? false : true);
   const navigate = useNavigate();
-
-  console.log(todoTitle, todoDescritption, todoDueDate);
 
   function handleCreateClick(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -59,12 +69,18 @@ export const AddTodo = ({ closeModal }: AddTodoProps) => {
           value={todoDueDate}
           onChange={(e) => setTodoDueDate(e.target.value)}
         />
+        {isUpdate && (
+          <label className="add-completed">
+            <input type="checkbox" checked={isCompleted} onChange={() => setIsCompleted(!isCompleted)} />
+            Completed
+          </label>
+        )}
         <div className="add-btn-grp">
           <Button className="todo-btn" handleClick={closeModal}>
             Cancel
           </Button>
-          <Button className="todo-btn" handleClick={() => console.log('Create Done')} buttonType="submit">
-            Create
+          <Button className="todo-btn" handleClick={() => handleCreateClick} buttonType="submit">
+            {isUpdate ? 'Update' : 'Create'}
           </Button>
         </div>
       </form>

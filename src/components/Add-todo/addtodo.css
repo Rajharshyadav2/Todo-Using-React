@@ -42,3 +42,21 @@ form {
   border: 0;
   border-radius: 0.5rem;
 }
+
+.add-completed {
+  display: flex;
+  justify-content: space-between;
+  color: hsl(0, 0%, 0%);
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.add-completed input {
+  margin: 0 0.6em 0.5em 0;
+  height: 1em;
+  width: 1em;
+}
+
+.add-btn-grp {
+  padding: 1rem 0;
+}
