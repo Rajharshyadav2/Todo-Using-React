@@ -72,3 +72,27 @@
 .todo-btn:last-child:hover {
   border: 2px solid var(--todo-color);
 }
+
+.edit-modal {
+  position: absolute;
+  inset: 20% 40px 40px;
+  border: none;
+  background: hsl(0, 0%, 100%);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+}
+
+.delete-modal {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  border: 1px solid hsl(0, 0%, 80%);
+  background: hsl(0, 24%, 84%);
+  overflow: hidden;
+  border-radius: 25px;
+  outline: none;
+  padding: 20px;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
