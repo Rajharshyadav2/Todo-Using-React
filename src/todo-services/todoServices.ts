@@ -1,124 +1,135 @@
 import { TodoType } from '../types';
+
 /**
- * Class representing a simple Todo service.
+ * Service class for handling Todo operations.
+ *
+ * @class TodoServices
  */
 export class TodoServices {
-  private static todos: TodoType[] = [
-    {
-      id: 1,
-      title: 'todo api',
-      description: 'Finish the report by tomorrow',
-      dueDate: '2023-11-11',
-      status: 'Pending',
-    },
-    {
-      id: 2,
-      title: 'Testing',
-      description: 'Finish the report by 5 PM',
-      dueDate: '2023-10-31',
-
-      status: 'Pending',
-    },
-    {
-      id: 3,
-      title: 'Testing',
-      description: 'Finish the report by 5 PM',
-      dueDate: '2023-10-30',
-
-      status: 'Completed',
-    },
-    {
-      id: 4,
-      title: 'Testing',
-      description: 'Finish the report by 5 PM',
-      dueDate: '2023-10-31',
-
-      status: 'Pending',
-    },
-    {
-      id: 5,
-      title: 'Testing',
-      description: 'Finish the report by 5 PM',
-      dueDate: '2023-10-28',
-
-      status: 'Completed',
-    },
-    {
-      id: 6,
-      title: 'Testing',
-      description: 'Finish the report by 5 PM',
-      dueDate: '2023-10-31',
-
-      status: 'Pending',
-    },
-    {
-      id: 7,
-      title: 'Testing',
-      description: 'Finish the report by 5 PM',
-      dueDate: '2023-10-26',
-
-      status: 'Completed',
-    },
-    {
-      id: 8,
-      title: 'Todo API',
-      description: 'Finish the report by tomorrow',
-      dueDate: '2023-10-31',
-
-      status: 'Pending',
-    },
-    {
-      id: 9,
-      title: 'Testing',
-      description: 'Finish the report by 5 PM',
-      dueDate: '2023-10-31',
-
-      status: 'Pending',
-    },
-    {
-      id: 10,
-      title: 'Testing',
-      description: 'Finish the report by 5 PM',
-      dueDate: '2023-10-22',
-      status: 'Completed',
-    },
-    {
-      id: 11,
-      title: 'Tesaosfmlasfating',
-      description: 'Finish the report by 5 PMa afnasklfnaslfsasf',
-      dueDate: '2023-10-22',
-      status: 'Completed',
-    },
-  ];
   /**
-   * Creates a new Todo and adds it to the list of todos.
+   * Base URL for Todo API.
+   * @static
+   * @private
+   *
+   * @type {string}
+   */
+  private static URL: string = import.meta.env.VITE_URL;
+
+  /**
+   * Creates a new Todo.
+   *
+   * @static
+   * @async
    * @param {TodoType} todoData - The data for the new Todo.
-   * @returns {void}
+   *
+   * @returns {Promise<TodoType>} The created Todo.
    */
-  static createTodo(todoData: TodoType) {
-    this.todos.push(todoData);
-  }
-  /**
-   * Retrieves all todos with 'Pending' status.
-   * @returns {TodoType[]} An array of todos with 'Pending' status.
-   */
-  static getPendingTodos() {
-    return this.todos.filter((todo) => todo.status === 'Pending');
+  static async createTodo(todoData: TodoType): Promise<TodoType> {
+    try {
+      const response = await fetch(this.URL, {
+        method: 'POST',
+        headers: {
+          Authorization: import.meta.env.VITE_DEV_API_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(todoData),
+      });
+
+      const fetchedData = await response.json();
+      // console.log(fetchedData.data);
+      return fetchedData.data;
+      // return response
+    } catch (error) {
+      throw new Error('Failed to Create Todo');
+    }
   }
 
   /**
-   * Retrieves all todos with 'Completed' status.
-   * @returns {TodoType[]} An array of todos with 'Completed' status.
+   * Retrieves all Todos.
+   *
+   * @static
+   * @async
+   * @returns {Promise<TodoType[]>} All Todos.
    */
-  static getCompletedTodos() {
-    return this.todos.filter((todo) => todo.status === 'Completed');
+  static async getAllTodos(): Promise<TodoType[]> {
+    try {
+      const response = await fetch(this.URL, {
+        headers: {
+          Authorization: import.meta.env.VITE_DEV_API_KEY,
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      throw new Error('Failed to Fetch Todos');
+    }
   }
 
   /**
-   * Retrieves all todos.
-   * @returns {TodoType[]} An array of all todos.
+   * Retrieves a Todo by ID.
+   *
+   * @static
+   * @async
+   * @param {number} todoId - The ID of the Todo to retrieve.
+   * @returns {Promise<TodoType>} The retrieved Todo.
    */
-  static getAllTodos() {
-    return this.todos;
+  static async getTodoById(todoId: number): Promise<TodoType> {
+    try {
+      const response = await fetch(`${this.URL}/${todoId}`, {
+        headers: {
+          Authorization: import.meta.env.VITE_DEV_API_KEY,
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      throw new Error('Failed to Fetch Todo by ID');
+    }
+  }
+
+  /**
+   * Updates a Todo.
+   *
+   * @static
+   * @async
+   * @param {number} todoId - The ID of the Todo to update.
+   * @param {TodoType} updatedTodoData - The updated data for the Todo.
+   * @returns {Promise<TodoType>} The updated Todo.
+   */
+  static async updateTodo(todoId: number, updatedTodoData: TodoType): Promise<TodoType> {
+    try {
+      const response = await fetch(`${this.URL}/${todoId}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: import.meta.env.VITE_DEV_API_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedTodoData),
+      });
+
+      return await response.json();
+    } catch (error) {
+      throw new Error('Failed to update todo with ID');
+    }
+  }
+
+  /**
+   * Deletes a Todo.
+   *
+   * @static
+   * @async
+   * @param {number} todoId - The ID of the Todo to delete.
+   * @returns {Promise<{ status: number }>} The status of the deletion operation.
+   */
+  static async deleteTodo(todoId: number): Promise<{ status: number }> {
+    try {
+      const response = await fetch(`${this.URL}/${todoId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: import.meta.env.VITE_DEV_API_KEY,
+        },
+      });
+      return { status: response.status };
+    } catch (error) {
+      throw new Error('Failed to delete todo with ID ');
+    }
   }
 }

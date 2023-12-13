@@ -1,10 +1,11 @@
 import './todo.css';
-import { useState } from 'react';
-import { format, parseISO } from 'date-fns';
 import Modal from 'react-modal';
 import Button from '../button/Button';
 import AddTodo from '../Add-todo/AddTodo';
 import DeleteTodo from '../delete-todo/DeleteTodo';
+import { useState } from 'react';
+import { format, parseISO } from 'date-fns';
+import type { TodoType } from '../../types';
 
 /**
  * Represents the properties of a Todo component in a React application.
@@ -12,6 +13,12 @@ import DeleteTodo from '../delete-todo/DeleteTodo';
  * @interface TodoProps
  */
 interface TodoProps {
+  /**
+   * The id of the todo.
+   *
+   * @type {number}
+   */
+  id: number;
   /**
    * The title of the todo.
    *
@@ -36,8 +43,12 @@ interface TodoProps {
    * @type {string} -'Pending' | 'Completed'
    */
   status: string;
+  /**
+   * A function to update the state of Todo items.
+   */
+  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
 }
-const Todo = ({ title, dueDate, description, status }: TodoProps) => {
+const Todo = ({ id, title, dueDate, description, status, setTodos }: TodoProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
 
@@ -81,10 +92,11 @@ const Todo = ({ title, dueDate, description, status }: TodoProps) => {
               <AddTodo
                 closeModal={closeModal}
                 isUpdate={modalType === 'edit'}
-                todo={{ title, description, dueDate, status }}
+                todo={{ id, title, description, dueDate, status }}
+                setTodos={setTodos}
               />
             ) : (
-              <DeleteTodo closeModal={closeModal} />
+              <DeleteTodo closeModal={closeModal} setTodos={setTodos} id={id} />
             )}
           </Modal>
         </div>
