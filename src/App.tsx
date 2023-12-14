@@ -1,8 +1,12 @@
-import { Routes, Route } from 'react-router';
 import './App.css';
 import './reset.css';
 import Navbar from './components/navbar/Navbar';
 import Todos from './components/todo/Todos';
+import { Routes, Route } from 'react-router';
+import { useState, useEffect } from 'react';
+import type { TodoType } from './types';
+import { TodoServices } from './todo-services/todoServices';
+import { useErrorBoundary } from 'react-error-boundary';
 
 /**
  * Renders the main application component.
@@ -12,14 +16,35 @@ import Todos from './components/todo/Todos';
  */
 
 function App() {
+  const [todos, setTodos] = useState<TodoType[]>([]);
+  const { showBoundary } = useErrorBoundary();
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const response = await TodoServices.getAllTodos();
+        setTodos(response);
+      } catch (error) {
+        console.log(`from App.tsx: ${error}`);
+        showBoundary(error);
+      }
+    };
+    fetchTodos();
+  }, []);
   return (
     <div className="todo-currentNavItem">
       <h1>My Todo</h1>
-      <Navbar />
+      <Navbar setTodos={setTodos} />
       <Routes>
-        <Route path="/" element={<Todos todoRequest="all" />}></Route>
-        <Route path="/inprogress" element={<Todos todoRequest="inprogress" />}></Route>
-        <Route path="/completed" element={<Todos todoRequest="completed" />}></Route>
+        <Route path="/" element={<Todos todos={todos} setTodos={setTodos} />}></Route>
+        <Route
+          path="/inprogress"
+          element={<Todos todos={todos.filter((todo) => todo.status === 'Pending')} setTodos={setTodos} />}
+        ></Route>
+        <Route
+          path="/completed"
+          element={<Todos todos={todos.filter((todo) => todo.status === 'Completed')} setTodos={setTodos} />}
+        ></Route>
       </Routes>
     </div>
   );

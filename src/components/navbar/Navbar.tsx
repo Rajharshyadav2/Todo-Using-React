@@ -1,15 +1,21 @@
 import './Navbar.css';
 import '../button/button.css';
-import { useState } from 'react';
 import Modal from 'react-modal';
-import { Link } from 'react-router-dom';
-import type { CurrentNavItemType } from '../../types';
-import NavButton from '../button/NavButton';
 import Button from '../button/Button';
 import AddTodo from '../Add-todo/AddTodo';
+import NavButton from '../button/NavButton';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import type { CurrentNavItemType, TodoType } from '../../types';
 
 // Navbar component for displaying navigation buttons.
-const Navbar = () => {
+interface NavbarProps {
+  /**
+   * A function to update the state of Todo items.
+   */
+  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
+}
+const Navbar = ({ setTodos }: NavbarProps) => {
   const [currentNavItem, setCurrentNavItem] = useState<CurrentNavItemType>('All');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
@@ -59,7 +65,7 @@ const Navbar = () => {
           },
         }}
       >
-        <AddTodo closeModal={closeAddModal} />
+        <AddTodo closeModal={closeAddModal} setTodos={setTodos} />
       </Modal>
     </nav>
   );

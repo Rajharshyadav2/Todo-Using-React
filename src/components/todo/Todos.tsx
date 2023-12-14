@@ -1,43 +1,37 @@
 import Todo from './Todo';
-import { TodoServices } from '../../todo-services/todoServices';
+import { TodoType } from '../../types';
 
 /**
  * Represents the properties of a Todos component in a React application.
  *
  * @interface TodosProps
  */
+
 interface TodosProps {
   /**
-   * The type of todos to display, which can be 'all', 'inprogress', or 'completed'.
+   * An array of Todo items.
    *
-   * @type {string} -can be 'all', 'inprogress', or 'completed'.
+   * @type {TodoType[]}
    */
-  todoRequest: 'all' | 'inprogress' | 'completed';
+  todos: TodoType[];
+  /**
+   * A function to update the state of Todo items.
+   */
+  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
 }
 
-const Todos = ({ todoRequest }: TodosProps) => {
-  const filteredTodos = () => {
-    switch (todoRequest) {
-      case 'inprogress':
-        return TodoServices.getPendingTodos();
-
-      case 'completed':
-        return TodoServices.getCompletedTodos();
-
-      default:
-        return TodoServices.getAllTodos();
-    }
-  };
-
+const Todos = ({ todos, setTodos }: TodosProps) => {
   return (
     <>
-      {filteredTodos().map((todo) => (
+      {todos.map((todo) => (
         <Todo
           key={todo.id}
+          id={todo.id!}
           title={todo.title}
           description={todo.description}
           dueDate={todo.dueDate}
           status={todo.status}
+          setTodos={setTodos}
         />
       ))}
     </>
