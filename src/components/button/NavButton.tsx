@@ -1,4 +1,3 @@
-import './button.css';
 import classNames from 'classnames';
 import Button from './Button';
 import { CurrentNavItemType } from '../../types';
@@ -34,7 +33,10 @@ interface NavButtonProps {
 const NavButton = ({ value, isActive, setCurrentNavItem }: NavButtonProps) => {
   return (
     <li>
-      <Button handleClick={() => setCurrentNavItem(value)} className={classNames('btn', { 'btn-active': isActive })}>
+      <Button
+        handleClick={() => setCurrentNavItem(value)}
+        className={classNames('btn', { 'text-orange-500': isActive })}
+      >
         {value}
       </Button>
     </li>

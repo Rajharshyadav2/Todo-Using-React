@@ -1,5 +1,3 @@
-import './deleteTodo.css';
-import '../Add-todo/addtodo.css';
 import Button from '../button/Button';
 import { TodoServices } from '../../todo-services/todoServices';
 import { useNavigate } from 'react-router-dom';
@@ -45,13 +43,13 @@ const DeleteTodo = ({ id, setTodos, closeModal }: DeleteTodoProps) => {
     }
   };
   return (
-    <div className="delete-body">
-      <h4>Are you sure to delete ?</h4>
-      <div className="delete-btn-grp">
-        <Button className="todo-btn" handleClick={() => closeModal()}>
+    <div className="px-4">
+      <h1 className=" text-lg font-bold mb-6">Are you sure to delete ?</h1>
+      <div>
+        <Button className="todo-btn text-red-600" handleClick={() => closeModal()}>
           Cancel
         </Button>
-        <Button className="todo-btn" handleClick={() => deleteOperation()}>
+        <Button className="todo-btn text-green-700" handleClick={() => deleteOperation()}>
           delete
         </Button>
       </div>

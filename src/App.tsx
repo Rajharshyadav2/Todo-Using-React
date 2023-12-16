@@ -1,5 +1,4 @@
-import './App.css';
-import './reset.css';
+import './global.css';
 import Navbar from './components/navbar/Navbar';
 import Todos from './components/todo/Todos';
 import { Routes, Route } from 'react-router';
@@ -32,8 +31,8 @@ function App() {
     fetchTodos();
   }, []);
   return (
-    <div className="todo-currentNavItem">
-      <h1>My Todo</h1>
+    <div className="h-full text-2xl pb-4 text-textColor font-primaryFont font-black text-center ">
+      <h1 className="pt-3 mb-4">My Todo</h1>
       <Navbar setTodos={setTodos} />
       <Routes>
         <Route path="/" element={<Todos todos={todos} setTodos={setTodos} />}></Route>

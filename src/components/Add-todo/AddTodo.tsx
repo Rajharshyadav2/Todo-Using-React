@@ -1,14 +1,11 @@
-import './addtodo.css';
-import '../navbar/Navbar.css';
-import '../todo/todo.css';
 import Button from '../button/Button';
-import { useNavigate } from 'react-router-dom';
+import Input from '../Input';
 import { useState } from 'react';
-import { TodoServices } from '../../todo-services/todoServices';
-import { TodoType } from '../../types';
+import { useNavigate } from 'react-router-dom';
 import { useErrorBoundary } from 'react-error-boundary';
-import { taskSchema } from '../../types';
 import { ZodError } from 'zod';
+import { TodoType, taskSchema } from '../../types';
+import { TodoServices } from '../../todo-services/todoServices';
 
 /**
  * Props for the AddTodo component.
@@ -104,56 +101,68 @@ export const AddTodo = ({ closeModal, isUpdate = false, todo, setTodos }: AddTod
               break;
           }
         });
-
-        console.log(newErrors);
         setValidationErrors(newErrors);
       } else {
-        console.error(error);
         showBoundary(error);
       }
     }
   };
   return (
-    <div className="add-todo-body">
-      <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleCreateClick(e)}>
-        {/* <div className="text-input"> */}
-        <input
+    <div className="w-2/4 min-w-fit my-[3rem] mx-auto border-1 border-black bg-formBg rounded-3xl">
+      <form
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleCreateClick(e)}
+        className=" h-3/4 flex flex-col flex-wrap justify-center items-center p-[2%]"
+      >
+        <Input
+          className="input"
           type="text"
-          id="todoTitle"
+          name="todoTitle"
           placeholder="Todo Title"
           value={todoTitle}
+          required={true}
           onChange={(e) => setTodoTitle(e.target.value)}
         />
-        {validationErrors.title && <span>{`tittle: ${validationErrors.title}`}</span>}
-        {/* </div> */}
-
+        {validationErrors.title && <span className="validation-message">{`tittle: ${validationErrors.title}`}</span>}
         <textarea
+          className=" w-1/2 h-16 py-2 px-4 mt-5 border-none rounded-md outline-none"
           placeholder="Todo Description"
           style={{ resize: 'none' }}
           value={todoDescritption}
           required
           onChange={(e) => setTodoDescription(e.target.value)}
         ></textarea>
-        {validationErrors.description && <span>{`desccription: ${validationErrors.description}`}</span>}
-        <input
+        {validationErrors.description && (
+          <span className="validation-message">{`desccription: ${validationErrors.description}`}</span>
+        )}
+
+        <Input
+          className="input"
           type="date"
+          name="todoDueDate"
           placeholder="DueDate: YYYY-MM-DD"
           value={todoDueDate}
-          required
+          required={true}
           onChange={(e) => setTodoDueDate(e.target.value)}
         />
-        {validationErrors.dueDate && <span>{`dueDate: ${validationErrors.dueDate}`}</span>}
+        {validationErrors.dueDate && (
+          <span className="validation-message">{`dueDate: ${validationErrors.dueDate}`}</span>
+        )}
         {isUpdate && (
-          <label className="add-completed">
-            <input type="checkbox" checked={isCompleted} onChange={() => setIsCompleted(!isCompleted)} />
+          <label className="flex justify-between text-black font-semibold text-lg mt-5">
+            <input
+              className=" h-4 w-4 mr-2 mt-2"
+              type="checkbox"
+              checked={isCompleted}
+              onChange={() => setIsCompleted(!isCompleted)}
+            />
             Completed
           </label>
         )}
-        <div className="add-btn-grp">
-          <Button className="todo-btn" handleClick={closeModal}>
+        <div className="mt-2.5 py-4 ">
+          <Button className="todo-btn text-red-600" handleClick={closeModal}>
             Cancel
           </Button>
-          <Button className="todo-btn" handleClick={() => handleCreateClick} buttonType="submit">
+          <Button className="todo-btn text-green-700" handleClick={() => handleCreateClick} buttonType="submit">
             {isUpdate ? 'Update' : 'Create'}
           </Button>
         </div>

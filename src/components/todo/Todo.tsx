@@ -1,4 +1,3 @@
-import './todo.css';
 import Modal from 'react-modal';
 import Button from '../button/Button';
 import AddTodo from '../Add-todo/AddTodo';
@@ -62,24 +61,24 @@ const Todo = ({ id, title, dueDate, description, status, setTodos }: TodoProps) 
   };
 
   return (
-    <div className="todo-body">
-      <div className="todo-header">
-        <h3>{title}</h3>
+    <div className="w-1/2 my-10 p-2 mx-auto border-todoBorder bg-todoBg rounded-2xl transition-all shadow-2xl hover:scale-110 ease-out duration-500">
+      <div className="flex py-1.5 text-green-700 font-bold text-xl">
+        <h3 className="w-[55%] mr-1.5 px-6 text-left underline text-2xl">{title}</h3>
 
-        <h3>Due On: {format(parseISO(dueDate), 'yyyy-MMM-dd')}</h3>
+        <h3 className="w-[40%] font-todoDesc text-right">Due On: {format(parseISO(dueDate), 'yyyy-MMM-dd')}</h3>
       </div>
-      <div className="todo-desc">
-        <h4>{description}</h4>
+      <div className="text-left py-1 px-2 ">
+        <h4 className=" text-black my-1 mx-3.5 font-todoDesc font-medium text-lg">{description}</h4>
       </div>
-      <div className="todo-footer">
-        <label>
+      <div className="flex justify-between py-2 px-5">
+        <label className="w-1/2 text-lg font-semibold text-left">
           <input type="checkbox" checked={status === 'Completed'} readOnly /> Completed
         </label>
-        <div className="todo-btn-grp">
-          <Button className="todo-btn" handleClick={() => openModal('delete')}>
+        <div>
+          <Button className="todo-btn text-red-600 hover:border-red-700" handleClick={() => openModal('delete')}>
             Delete
           </Button>
-          <Button className="todo-btn" handleClick={() => openModal('edit')}>
+          <Button className="todo-btn text-green-700" handleClick={() => openModal('edit')}>
             Edit
           </Button>
           <Modal
