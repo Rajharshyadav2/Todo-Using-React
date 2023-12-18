@@ -1,5 +1,3 @@
-import './Navbar.css';
-import '../button/button.css';
 import Modal from 'react-modal';
 import Button from '../button/Button';
 import AddTodo from '../Add-todo/AddTodo';
@@ -24,8 +22,8 @@ const Navbar = ({ setTodos }: NavbarProps) => {
   };
 
   return (
-    <nav className="nav-bar">
-      <ul className="nav-bar-items">
+    <nav className="h-auto w-5/6 mx-auto border-y-2 border-black shadow-2xl shadow-gray-900 opacity-100 ">
+      <ul className="flex justify-around my-2 ">
         <Link to="/">
           <NavButton value="All" isActive={currentNavItem === 'All'} setCurrentNavItem={setCurrentNavItem} />
         </Link>
@@ -47,24 +45,14 @@ const Navbar = ({ setTodos }: NavbarProps) => {
         </Link>
 
         <Link to="">
-          <li id="add-btn">
+          <li className="bg-indigo-500 font-primaryFont font-black rounded-xl px-10 cursor-pointer transform hover:border-[3px] border-green-900 shadow-gray-900 opacity-80">
             <Button className="btn" handleClick={() => setIsAddModalOpen(true)}>
               +
             </Button>
           </li>
         </Link>
       </ul>
-      <Modal
-        isOpen={isAddModalOpen}
-        onRequestClose={closeAddModal}
-        ariaHideApp={false}
-        style={{
-          content: {
-            top: '20%',
-            border: 'none',
-          },
-        }}
-      >
+      <Modal isOpen={isAddModalOpen} onRequestClose={closeAddModal} ariaHideApp={false} className={'edit-modal'}>
         <AddTodo closeModal={closeAddModal} setTodos={setTodos} />
       </Modal>
     </nav>

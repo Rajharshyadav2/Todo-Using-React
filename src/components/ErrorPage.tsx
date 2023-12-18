@@ -1,5 +1,4 @@
 'use client';
-import './todo/todo.css';
 import { useErrorBoundary } from 'react-error-boundary';
 
 /**
