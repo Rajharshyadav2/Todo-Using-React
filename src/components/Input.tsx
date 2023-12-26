@@ -31,7 +31,7 @@ interface InputProps {
    * The current value of the input element.
    * @type {string}
    */
-  value: string;
+  value?: string;
 
   /**
    * Indicates whether the input element is checked (for checkbox or radio types).
@@ -49,7 +49,7 @@ interface InputProps {
    * A function that will be called when the input value changes.
    * @type {(e: React.ChangeEvent<HTMLInputElement>) => void}
    */
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputField = ({ className, type, name, placeholder, value, checked, required, onChange }: InputProps) => {

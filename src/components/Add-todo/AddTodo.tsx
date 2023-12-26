@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useErrorBoundary } from 'react-error-boundary';
 import { ZodError } from 'zod';
 import { TodoType, taskSchema } from '../../types';
-import { TodoServices } from '../../todo-services/todoServices';
+import { TodoServices } from '../../todo-services/todo-services';
 
 /**
  * Props for the AddTodo component.
@@ -79,7 +79,7 @@ export const AddTodo = ({ closeModal, isUpdate = false, todo, setTodos }: AddTod
         const createTodo = await TodoServices.createTodo(newTodo);
         setTodos((prevTodo) => [...prevTodo, createTodo]);
       }
-      navigate('/');
+      navigate('/all');
       closeModal();
     } catch (error) {
       if (error instanceof ZodError) {

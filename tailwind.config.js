@@ -19,6 +19,9 @@ export default {
       boxShadow: {
         bottom: 'box-shadow: 0 100px 0px',
       },
+      backgroundImage: {
+        loginBg: "url('/src/asset/loginBg.jpg')",
+      },
     },
   },
   plugins: [],

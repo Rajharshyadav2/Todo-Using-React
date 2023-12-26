@@ -22,9 +22,9 @@ const Navbar = ({ setTodos }: NavbarProps) => {
   };
 
   return (
-    <nav className="h-auto w-5/6 mx-auto border-y-2 border-black shadow-2xl shadow-gray-900 opacity-100 ">
+    <nav className="h-auto w-5/6 mx-auto text-textColor border-y-2 border-black shadow-2xl shadow-gray-900 opacity-100 ">
       <ul className="flex justify-around my-2 ">
-        <Link to="/">
+        <Link to="/all">
           <NavButton value="All" isActive={currentNavItem === 'All'} setCurrentNavItem={setCurrentNavItem} />
         </Link>
 
