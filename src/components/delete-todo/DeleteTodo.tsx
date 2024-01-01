@@ -1,5 +1,5 @@
 import Button from '../button/Button';
-import { TodoServices } from '../../todo-services/todoServices';
+import { TodoServices } from '../../todo-services/todo-services';
 import { useNavigate } from 'react-router-dom';
 import { TodoType } from '../../types';
 import { useErrorBoundary } from 'react-error-boundary';
@@ -37,7 +37,7 @@ const DeleteTodo = ({ id, setTodos, closeModal }: DeleteTodoProps) => {
       await TodoServices.deleteTodo(id);
       setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
       closeModal();
-      navigate('/');
+      navigate('/all');
     } catch (error) {
       showBoundary(error);
     }

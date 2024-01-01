@@ -13,7 +13,7 @@ export class TodoServices {
    *
    * @type {string}
    */
-  private static URL: string = import.meta.env.VITE_URL;
+  private static URL: string = import.meta.env.VITE_TODO_URL;
 
   /**
    * Creates a new Todo.
@@ -33,6 +33,7 @@ export class TodoServices {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(todoData),
+        credentials: 'include',
       });
 
       const fetchedData = await response.json();
@@ -57,6 +58,7 @@ export class TodoServices {
         headers: {
           Authorization: import.meta.env.VITE_DEV_API_KEY,
         },
+        credentials: 'include',
       });
       return await response.json();
     } catch (error) {
@@ -78,6 +80,7 @@ export class TodoServices {
         headers: {
           Authorization: import.meta.env.VITE_DEV_API_KEY,
         },
+        credentials: 'include',
       });
       return await response.json();
     } catch (error) {
@@ -103,6 +106,7 @@ export class TodoServices {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedTodoData),
+        credentials: 'include',
       });
 
       return await response.json();
@@ -126,6 +130,7 @@ export class TodoServices {
         headers: {
           Authorization: import.meta.env.VITE_DEV_API_KEY,
         },
+        credentials: 'include',
       });
       return { status: response.status };
     } catch (error) {
