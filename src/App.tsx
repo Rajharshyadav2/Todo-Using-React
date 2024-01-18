@@ -4,6 +4,7 @@ import Navbar from './components/navbar/Navbar';
 import Todos from './components/todo/Todos';
 import Button from './components/button/Button';
 import Register from './components/login/Register';
+import InputField from './components/Input';
 import { Routes, Route, Navigate } from 'react-router';
 import { useState, useEffect } from 'react';
 import type { TodoType } from './types';
@@ -21,6 +22,7 @@ import { TodoServices } from './todo-services/todo-services';
 function App() {
   const { showBoundary } = useErrorBoundary();
   const [todos, setTodos] = useState<TodoType[]>([]);
+  const [serachQuery, setSearchQuery] = useState('');
   const [userDetail, setUserDetail] = useState({
     isUser: false,
     userName: '',
@@ -56,6 +58,10 @@ function App() {
     }
   };
 
+  const handleSerachOperation = () => {
+    return todos.filter((todo) => todo.title.toLowerCase().includes(serachQuery.toLowerCase()));
+  };
+
   return (
     <div
       className={classNames('h-screen pb-4 font-primaryFont font-black', {
@@ -77,15 +83,33 @@ function App() {
             </div>
           </div>
           <Navbar setTodos={setTodos} />
+          <div className=" mr-[8%] flex justify-end">
+            <InputField
+              className="input w-[25%] shadow-md bg-amber-50"
+              type="text"
+              placeholder="search here..."
+              onChange={(event) => setSearchQuery(event.target.value)}
+            />
+          </div>
           <Routes>
-            <Route path="/all" element={<Todos todos={todos} setTodos={setTodos} />}></Route>
+            <Route path="/all" element={<Todos todos={handleSerachOperation()} setTodos={setTodos} />}></Route>
             <Route
               path="/inprogress"
-              element={<Todos todos={todos.filter((todo) => todo.status === 'Pending')} setTodos={setTodos} />}
+              element={
+                <Todos
+                  todos={handleSerachOperation().filter((todo) => todo.status === 'Pending')}
+                  setTodos={setTodos}
+                />
+              }
             ></Route>
             <Route
               path="/completed"
-              element={<Todos todos={todos.filter((todo) => todo.status === 'Completed')} setTodos={setTodos} />}
+              element={
+                <Todos
+                  todos={handleSerachOperation().filter((todo) => todo.status === 'Completed')}
+                  setTodos={setTodos}
+                />
+              }
             ></Route>
           </Routes>
         </div>
